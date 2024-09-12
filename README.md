@@ -19,67 +19,64 @@
     <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
   <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
 </p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+# Projeto Backend - API Skins de Counter Strike
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Este é o backend para o projeto de listagem de skins de counter Strike 2 desenvolvido com NestJS, Prisma ORM e MongoDB. O projeto oferece um único endpoint para listar itens, com suporte para filtros e ordenação.
 
-## Project setup
+## Endpoints
 
-```bash
-$ yarn install
+### Listar Itens
+
+**GET** `/items`
+
+Retorna uma lista de itens (skins) com base nos filtros e parâmetros fornecidos.
+
+#### Parâmetros de Query
+
+- **`name`**: (opcional) Nome do item para filtrar por substring. Tipo: `string`.
+- **`category`**: (opcional) Categoria do item. Tipo: `string`.
+- **`price`**: (opcional) Faixa de preço do item. Tipo: `number[]`. Exemplo: `[0, 200]`.
+- **`float`**: (opcional) Faixa de valores de float do item. Tipo: `number[]`. Exemplo: `[0, 100]`.
+- **`orderBy`**: (opcional) Campo para ordenar os itens. Tipo: `string`. Pode ser `price` ou `float`.
+- **`orderDirection`**: (opcional) Direção da ordenação. Tipo: `"asc" | "desc"`. Valor padrão: `"asc"`.
+
+#### Exemplo de Request
+
+```http
+GET /items?name=Deser&orderBy=price&orderDirection=desc
 ```
 
-## Compile and run the project
+## Faça o clone do projeto
+
+Acesse a pasta que deseja fazer o clone do projeto e rode o comando abaixo
 
 ```bash
-# development
-$ yarn run start
-
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
+git clone https://github.com/christopher-alves-dev/cs-skin-store-api.git
 ```
 
-## Run tests
+## Configuração de Variáveis de Ambiente
+
+Para garantir que seu ambiente de desenvolvimento esteja configurado corretamente, você precisará definir algumas variáveis de ambiente. Siga as instruções abaixo para configurar essas variáveis.
+
+### Passo 1: Criar o Arquivo `.env`
+
+Na raiz do projeto, crie um arquivo chamado `.env`. Esse arquivo será usado para definir suas variáveis de ambiente. O arquivo deve seguir o formato `VARIAVEL=valor`, uma por linha.
+
+### Passo 2: Definir as Variáveis de Ambiente
+
+Você pode utilizar o arquivo de tipagens de env `env.d.ts` na raíz do projeto como exemplo para configurar as variáveis.
+
+## Como Rodar
+
+Para rodar em modo de desenvolvimento.
 
 ```bash
-# unit tests
-$ yarn run test
-
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
