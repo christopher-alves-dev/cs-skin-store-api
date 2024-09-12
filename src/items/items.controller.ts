@@ -11,8 +11,8 @@ export class ItemsController {
     @Query("price") price?: string,
     @Query("float") float?: string,
     @Query("category") category?: string,
-    @Query("orderBy") orderBy?: string, // Campo de ordenação: "price" ou "float"
-    @Query("orderDirection") orderDirection?: "asc" | "desc", // Direção de ordenação
+    @Query("orderBy") orderBy?: string,
+    @Query("orderDirection") orderDirection?: "asc" | "desc",
   ) {
     return this.itemsService.findAll({
       name,

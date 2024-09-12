@@ -1,4 +1,5 @@
 import { Injectable } from "@nestjs/common";
+import { Prisma } from "@prisma/client";
 import { PrismaService } from "src/prisma/prisma.service";
 
 @Injectable()
@@ -11,33 +12,44 @@ export class ItemsService {
     float?: number[];
     category?: string;
     orderBy?: string;
-    orderDirection?: "asc" | "desc"; // Ordenação por ascendente ou descendente
+    orderDirection?: "asc" | "desc";
   }) {
-    const { name, price, float, category, orderBy, orderDirection } = params;
+    let priceFilter: Prisma.IntFilter<"Item"> = {};
+    let floatFilter: Prisma.StringNullableFilter<"Item"> = {};
+
+    if (params?.price && Array.isArray(params?.price)) {
+      const [minPrice, maxPrice] = params?.price;
+      priceFilter = {
+        gte: minPrice || 0,
+        ...(maxPrice !== undefined && { lte: maxPrice }),
+      };
+    }
+
+    if (params?.float && Array.isArray(params?.float)) {
+      const [minFloat, maxFloat] = params?.float;
+      floatFilter = {
+        gte: String(minFloat) || "0",
+        ...(maxFloat !== undefined && { lte: String(maxFloat) }),
+      };
+    }
+    const conditionsToFilter: Prisma.ItemWhereInput = {
+      ...(!!params?.name && {
+        name: { contains: params?.name, mode: "insensitive" },
+      }),
+      ...(!!params?.category && {
+        category: { equals: params?.category },
+      }),
+      price: priceFilter,
+      float: floatFilter,
+    };
 
     return this.prisma.item.findMany({
-      where: {
-        name: name ? { contains: name, mode: "insensitive" } : undefined,
-        category: category ? { equals: category } : undefined,
-        price: price
-          ? {
-              gte: price[0] ?? undefined,
-              lte: price[1] ?? undefined,
-            }
-          : undefined,
-        float: float
-          ? {
-              gte: float[0].toString(),
-              lte: float[1].toString(),
-            }
-          : undefined,
-      },
-      // Adicionando a lógica de ordenação
-      orderBy: orderBy
-        ? {
-            [orderBy]: orderDirection || "asc", // Ordena pelo campo especificado (ascendente por padrão)
-          }
-        : undefined,
+      where: conditionsToFilter,
+      ...(!!params?.orderBy && {
+        orderBy: {
+          [params.orderBy]: params.orderDirection || "asc",
+        },
+      }),
     });
   }
 }
