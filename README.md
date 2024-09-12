@@ -20,7 +20,7 @@
   <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
 </p>
 
-# Projeto Backend - API Skins de Counter Strike
+# Projeto Backend - API Skins de Counter Strike 2
 
 Este é o backend para o projeto de listagem de skins de counter Strike 2 desenvolvido com NestJS, Prisma ORM e MongoDB. O projeto oferece um único endpoint para listar itens, com suporte para filtros e ordenação.
 
@@ -37,7 +37,7 @@ Retorna uma lista de itens (skins) com base nos filtros e parâmetros fornecidos
 - **`name`**: (opcional) Nome do item para filtrar por substring. Tipo: `string`.
 - **`category`**: (opcional) Categoria do item. Tipo: `string`.
 - **`price`**: (opcional) Faixa de preço do item. Tipo: `number[]`. Exemplo: `[0, 200]`.
-- **`float`**: (opcional) Faixa de valores de float do item. Tipo: `number[]`. Exemplo: `[0, 100]`.
+- **`float`**: (opcional) Faixa de valores de float do item. Tipo: `number[]`. Exemplo: `[0, 1]`.
 - **`orderBy`**: (opcional) Campo para ordenar os itens. Tipo: `string`. Pode ser `price` ou `float`.
 - **`orderDirection`**: (opcional) Direção da ordenação. Tipo: `"asc" | "desc"`. Valor padrão: `"asc"`.
 
