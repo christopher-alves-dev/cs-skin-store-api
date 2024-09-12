@@ -28,8 +28,9 @@ export class ItemsService {
     if (params?.float && Array.isArray(params?.float)) {
       const [minFloat, maxFloat] = params?.float;
       floatFilter = {
-        ...(minFloat && { gte: String(minFloat) }),
-        ...(maxFloat && { lte: String(maxFloat) }),
+        not: null,
+        ...(minFloat !== undefined && { gte: String(minFloat) }),
+        ...(maxFloat !== undefined && { lte: String(maxFloat) }),
       };
     }
     const conditionsToFilter: Prisma.ItemWhereInput = {
