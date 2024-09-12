@@ -21,15 +21,15 @@ export class ItemsService {
       const [minPrice, maxPrice] = params?.price;
       priceFilter = {
         gte: minPrice || 0,
-        ...(maxPrice !== undefined && { lte: maxPrice }),
+        ...(maxPrice && { lte: maxPrice }),
       };
     }
 
     if (params?.float && Array.isArray(params?.float)) {
       const [minFloat, maxFloat] = params?.float;
       floatFilter = {
-        gte: String(minFloat) || "0",
-        ...(maxFloat !== undefined && { lte: String(maxFloat) }),
+        ...(minFloat && { gte: String(minFloat) }),
+        ...(maxFloat && { lte: String(maxFloat) }),
       };
     }
     const conditionsToFilter: Prisma.ItemWhereInput = {
